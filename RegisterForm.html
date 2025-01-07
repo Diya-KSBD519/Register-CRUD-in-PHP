@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link href="css/RegisterFormStyle.css" rel="stylesheet">
+    <script>
+        function validateForm(event) {
+            let isValid = true;
+
+            // Validate name
+            let name = document.getElementById('name').value.trim();
+            if (name === "") {
+                document.getElementById('nameError').textContent = 'Name is required';
+                isValid = false;
+            } else {
+                document.getElementById('nameError').textContent = '';
+            }
+
+            // Validate password
+            let password = document.getElementById('password').value.trim();
+            if (password === "") {
+                document.getElementById('passwordError').textContent = 'Password cannot be blank';
+                isValid = false;
+            } else if (password.length < 6) {
+                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters long';
+                isValid = false;
+            } else {
+                document.getElementById('passwordError').textContent = '';
+            }
+
+            // Validate address
+            let address = document.getElementById('address').value.trim();
+            let addressPattern = /^[a-zA-Z0-9\s,'-]+$/;
+            if (address === "") {
+                document.getElementById('addressError').textContent = 'Address is required';
+                isValid = false;
+            } else if (!addressPattern.test(address)) {
+                document.getElementById('addressError').textContent = 'Invalid address format';
+                isValid = false;
+            } else {
+                document.getElementById('addressError').textContent = '';
+            }
+
+            // Validate phone
+            let phone = document.getElementById('phone').value.trim();
+            let phonePattern = /^\d{10}$/;
+            if (phone === "") {
+                document.getElementById('phoneError').textContent = 'Phone number is required';
+                isValid = false;
+            } else if (!phonePattern.test(phone)) {
+                document.getElementById('phoneError').textContent = 'Phone number must be 10 digits';
+                isValid = false;
+            } else {
+                document.getElementById('phoneError').textContent = '';
+            }
+
+            // Validate email
+            let email = document.getElementById('email').value.trim();
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email === "") {
+                document.getElementById('emailError').textContent = 'Email is required';
+                isValid = false;
+            } else if (!emailPattern.test(email)) {
+                document.getElementById('emailError').textContent = 'Invalid email format';
+                isValid = false;
+            } else {
+                document.getElementById('emailError').textContent = '';
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Register Page</h1>
+    <form action="RegisterForm.php" method="post" onsubmit="validateForm(event)">
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <p id="nameError" class="error"></p>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <p id="passwordError" class="error"></p>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address">
+        <p id="addressError" class="error"></p>
+
+        <label for="phone">Phone no.:</label>
+        <input type="tel" id="phone" name="phone">
+        <p id="phoneError" class="error"></p>
+
+        <label for="email">Email address:</label>
+        <input type="email" id="email" name="email" required>
+        <p id="emailError" class="error"></p>
+
+        <div class="button-group">
+            <input type="submit" value="Submit" name="add">
+            <input type="button" value="Update" name="update" onclick="window.location.href='update.html'">
+            <input type="button" value="Delete" name="delete" onclick="window.location.href='delete.html'">
+            <input type="button" value="View Details" name="viewdetails" onclick="window.location.href='view_details.php'">
+        </div>
+    </form>
+</body>
+</html>
+
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link href="css/RegisterFormStyle.css" rel="stylesheet">
+
+    <script>
+        function validateForm(event) {
+            let isValid = true; 
+
+            // Validate name
+            let name = document.getElementById('name').value.trim();
+            if (name === "") {
+                document.getElementById('nameError').textContent = 'Name is required';
+                isValid = false; // Set to false if invalid
+            } else {
+                document.getElementById('nameError').textContent = '';
+            }
+
+            // Validate password
+            let password = document.getElementById('password').value.trim();
+            if (password === "") {
+                document.getElementById('passwordError').textContent = 'Password cannot be blank';
+                isValid = false;
+            } else if (password.length < 6) {
+                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters long';
+                isValid = false;
+            } else {
+                document.getElementById('passwordError').textContent = '';
+            }
+
+            // Validate address
+            let address = document.getElementById('address').value.trim();
+            let addressPattern = /^[a-zA-Z0-9\s,'-]+$/; // Allow alphanumeric and certain special characters
+            if (address === "") {
+                document.getElementById('addressError').textContent = 'Address is required';
+                isValid = false;
+            } else if (!addressPattern.test(address)) {
+                document.getElementById('addressError').textContent = 'Invalid address format';
+                isValid = false;
+            } else {
+                document.getElementById('addressError').textContent = '';
+            }
+
+            // Validate phone
+            let phone = document.getElementById('phone').value.trim();
+            let phonePattern = /^\d{10}$/; // Exactly 10 digits
+            if (phone === "") {
+                document.getElementById('phoneError').textContent = 'Phone number is required';
+                isValid = false;
+            } else if (!phonePattern.test(phone)) {
+                document.getElementById('phoneError').textContent = 'Phone number must be 10 digits';
+                isValid = false;
+            } else {
+                document.getElementById('phoneError').textContent = '';
+            }
+
+            // Validate email
+            let email = document.getElementById('email').value.trim();
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Standard email regex
+            if (email === "") {
+                document.getElementById('emailError').textContent = 'Email is required';
+                isValid = false;
+            } else if (!emailPattern.test(email)) {
+                document.getElementById('emailError').textContent = 'Invalid email format';
+                isValid = false;
+            } else {
+                document.getElementById('emailError').textContent = '';
+            }
+
+            if (!isValid) {
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+        }
+    </script>
+</head>
+<body>
+    <form action="RegisterForm.php" method="post">
+        <h1> Register Page </h1>
+
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required>
+        <p id="nameError" style="color: red;"></p><br>
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required>
+        <p id="passwordError" style="color: red;"></p><br>
+
+        <label for="address">Address:</label><br>
+        <input type="text" id="address" name="address">
+        <p id="addressError" style="color: red;"></p><br>
+
+        <label for="phone">Phone no.:</label><br>
+        <input type="tel" id="phone" name="phone">
+        <p id="phoneError" style="color: red;"></p><br>
+
+        <label for="email">Email address:</label><br>
+        <input type="email" id="email" name="email" required>
+        <p id="emailError" style="color: red;"></p><br><br>
+
+        <input type="submit" value="Submit" name="add" onclick="validateForm(event)">
+        <input type="button" value="Update" name="update" onclick="window.location.href='update.html'">
+        <input type="button" value="Delete" name="delete" onclick="window.location.href='delete.html'">
+        <input type="button" value="View Details" name="viewdetails" onclick="window.location.href='view_details.php'">
+    </form>
+</body>
+</html> -->
